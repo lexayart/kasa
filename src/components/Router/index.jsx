@@ -5,17 +5,18 @@ import Header from './../Header'
 import APropos from './../../pages/APropos'
 import Footer from './../Footer'
 import FicheLogement from '../../pages/FicheLogement'
-import GlobalStyle from '../../GlobalStyle'
 
 function Routeur() {
   return (
     <Router>
-      <GlobalStyle />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/APropos" element={<APropos />}></Route>
-        <Route path="/FicheLogement" element={<FicheLogement />}></Route>
+        <Route
+          path="/FicheLogement/:idLogement"
+          element={<FicheLogement />}
+        ></Route>
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

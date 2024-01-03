@@ -1,169 +1,72 @@
-import photo from './../../assets/Home/Banner1.png'
-import arrow from './../../assets/ArrowVector.svg'
-import styled from 'styled-components'
-import colors from '../../utils/assets/color'
 import Rating from '../../components/Rating'
-
-const FicheLogementWrapper = styled.div`
-  margin: 50px 100px 50px 100px;
-  color: ${colors.primary};
-`
-const ImgWrapper = styled.div`
-  width: 100%;
-  height: 415px;
-  object-fit: cover;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 25px;
-  }
-`
-const TitleWrapper = styled.div`
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
-  h2 {
-    font-weight: 500;
-    font-size: 36px;
-    margin: 0;
-  }
-  p {
-    margin: 0;
-    font-weight: 500;
-    font-size: 18px;
-  }
-`
-
-const UserWrapper = styled.div`
-  display: flex;
-  align-content: center;
-  p {
-    font-weight: 500;
-    font-size: 18px;
-  }
-`
-
-const ProfilePicture = styled.div`
-  width: 64px;
-  height: 64px;
-  border-radius: 32px;
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 32px;
-    object-fit: cover;
-  }
-`
-
-const TagsWrapper = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-
-  li {
-    margin-right: 10px;
-    background-color: ${colors.primary};
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 10px;
-    min-width: 115px;
-    height: 25px;
-    padding: 0 10px 0 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`
-const TagsRatingWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0 24px 0;
-  align-items: center;
-`
-const CollapseBothWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  .Collapse {
-    width: calc(50% - 38px);
-    background-color: ${colors.secondary};
-    border-radius: 5px;
-    p {
-      font-weight: 400;
-      font-size: 18px;
-      margin: 0;
-      padding: 25px 20px 20px 20px;
-    }
-  }
-`
-
-const CollapseTitleWrapper = styled.div`
-  background-color: ${colors.primary};
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  aligh-items: center;
-  padding: 10px 24px 10px 10px;
-  border-radius: 5px;
-  h3 {
-    margin: 0;
-    font-weight: 500;
-    font-size: 18px;
-  }
-  img {
-    width: 24px;
-    height: auto;
-  }
-`
+import Slideshow from '../../components/Slideshow'
+import annonces from './../../data/annonces.json'
+import { useParams } from 'react-router-dom'
+import Collapse from '../../components/Collapse'
+import Error from './../Error'
 
 function FicheLogement() {
-  return (
-    <FicheLogementWrapper>
-      <ImgWrapper>
-        <img src={photo} alt="Intérieur du logement" />
-      </ImgWrapper>
-      <TitleWrapper>
-        <div>
-          <h2>Cozy loft on the Canal Saint-Martin</h2>
-          <p>Paris, Île-de-France</p>
+  const idLogement = useParams()
+  try {
+    const infosLogement = annonces.find(
+      (element) => element.id === idLogement.idLogement,
+    )
+    const ratingNote = infosLogement.rating
+
+    return (
+      <div className="logement">
+        <Slideshow imgLogement={infosLogement.pictures} />
+        <div className="logement_infos">
+          <div className="logement_infos_primary">
+            <div className="logement_infos_primary_title">
+              <div>
+                <h2>{infosLogement.title}</h2>
+                <p>{infosLogement.location}</p>
+              </div>
+            </div>
+            <ul className="logement_infos_primary_tags">
+              {infosLogement.tags.map((tag) => (
+                <li key={tag}>{tag}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="logement_infos_secondary">
+            <div className="logement_infos_secondary_user">
+              <p>{infosLogement.host.name}</p>
+              <div className="logement_infos_secondary_user_picture">
+                <img src={infosLogement.host.picture} alt="Profil de l'hôte" />
+              </div>
+            </div>
+            <Rating ratingNote={ratingNote} />
+          </div>
         </div>
-        <UserWrapper>
-          <p>Alexandre Dumas</p>
-          <ProfilePicture>
-            <img src={photo} alt="Profil de l'hôte" />
-          </ProfilePicture>
-        </UserWrapper>
-      </TitleWrapper>
-      <div>
-        <TagsRatingWrapper>
-          <TagsWrapper>
-            <li>Cozy</li>
-            <li>Canal</li>
-            <li>Paris 10</li>
-          </TagsWrapper>
-          <Rating />
-        </TagsRatingWrapper>
-        <CollapseBothWrapper>
-          <div className="Collapse">
-            <CollapseTitleWrapper>
-              <h3>Description</h3>
-              <img src={arrow} alt="flèche" />
-            </CollapseTitleWrapper>
-            <p>Caption</p>
+        <div>
+          <div className="logement_collapse">
+            <Collapse
+              title="Description"
+              caption={infosLogement.description}
+              itemClassname="logement_collapse_element"
+              titleClassname="logement_collapse_element_title"
+            />
+            <Collapse
+              title="Équipements"
+              caption={
+                <ul>
+                  {infosLogement.equipments.map((equipment) => (
+                    <li key={equipment}>{equipment}</li>
+                  ))}
+                </ul>
+              }
+              itemClassname="logement_collapse_element"
+              titleClassname="logement_collapse_element_title"
+            />
           </div>
-          <div className="Collapse">
-            <CollapseTitleWrapper>
-              <h3>Équipements</h3>
-              <img src={arrow} alt="flèche" />
-            </CollapseTitleWrapper>
-            <p>Caption</p>
-          </div>
-        </CollapseBothWrapper>
+        </div>
       </div>
-    </FicheLogementWrapper>
-  )
+    )
+  } catch (error) {
+    return <Error />
+  }
 }
 
 export default FicheLogement
