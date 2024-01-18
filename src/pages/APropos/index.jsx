@@ -10,9 +10,8 @@ function APropos() {
         {values.map(({ id, title, caption }) => (
           <Collapse
             title={title}
-            caption={caption}
-            titleClassname="values_item_title"
-            itemClassname="values_item"
+            caption={<p>{caption}</p>}
+            itemClassname="values_collapse_element"
             key={id}
           />
         ))}

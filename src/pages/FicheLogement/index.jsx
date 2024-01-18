@@ -12,7 +12,6 @@ function FicheLogement() {
       (element) => element.id === idLogement.idLogement,
     )
     const ratingNote = infosLogement.rating
-
     return (
       <div className="logement">
         <Slideshow imgLogement={infosLogement.pictures} />
@@ -44,9 +43,8 @@ function FicheLogement() {
           <div className="logement_collapse">
             <Collapse
               title="Description"
-              caption={infosLogement.description}
+              caption={<p>{infosLogement.description}</p>}
               itemClassname="logement_collapse_element"
-              titleClassname="logement_collapse_element_title"
             />
             <Collapse
               title="Équipements"
@@ -58,7 +56,6 @@ function FicheLogement() {
                 </ul>
               }
               itemClassname="logement_collapse_element"
-              titleClassname="logement_collapse_element_title"
             />
           </div>
         </div>

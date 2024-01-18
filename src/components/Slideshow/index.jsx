@@ -1,38 +1,29 @@
 import arrow from './../../assets/ArrowVectorAngular.svg'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Slideshow(imgLogement) {
   const [index, setIndex] = useState(0)
 
-  function nextImage() {
+  useEffect(() => {
     const lateralSlideshow = document.querySelector(
       '.slideshow_gallery_content',
     )
+    lateralSlideshow.style.transform = `translateX(${index}00%)`
+  }, [index])
 
+  function nextImage() {
     if (index === imgLogement.imgLogement.length - 1) {
       setIndex(0)
-      console.log(index)
     } else {
       setIndex(index + 1)
-      console.log(index)
     }
-    lateralSlideshow.style.transform = `translateX(-${index}00%)`
   }
-
   function previousImage() {
-    const lateralSlideshow = document.querySelector(
-      '.slideshow_gallery_content',
-    )
-
     if (index === 0) {
-      console.log(imgLogement.imgLogement.length)
       setIndex(imgLogement.imgLogement.length - 1)
-      console.log(index)
     } else {
       setIndex(index - 1)
-      console.log(index)
     }
-    lateralSlideshow.style.transform = `translateX(-${index}00%)`
   }
 
   return (
@@ -42,6 +33,7 @@ function Slideshow(imgLogement) {
         className="slideshow_arrow slideshow_arrow_left"
         alt="flèche précédent"
         onClick={previousImage}
+        role="button"
       />
       <div className="slideshow_gallery">
         <div className="slideshow_gallery_content">
@@ -60,7 +52,11 @@ function Slideshow(imgLogement) {
         className="slideshow_arrow slideshow_arrow_right"
         alt="flèche suivant"
         onClick={nextImage}
+        role="button"
       />
+      <p className="slideshow_numbering">
+        {index + 1}/{imgLogement.imgLogement.length}
+      </p>
     </div>
   )
 }
