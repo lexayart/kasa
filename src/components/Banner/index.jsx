@@ -1,47 +1,24 @@
-import bannerBackground from './../../assets/Home/Banner1.png'
-import styled from 'styled-components'
-
-const BannerWrap = styled.div`
-  margin: 50px 100px 0 100px;
-  height: 223px;
-  position: relative;
-  object-fit: cover;
-  background: url(${bannerBackground}) no-repeat scroll center;
-  background-size: cover;
-  border-radius: 25px;
-
-  img {
-    width: 100%;
-    height: auto;
-  }
-  div {
-    position: absolute;
-    background-color: black;
-    opacity: 30%;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    border-radius: 25px;
-  }
-  p {
-    color: white;
-    width: 100%;
-    text-align: center;
-    position: absolute;
-    margin: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 48px;
-  }
-`
+import { useLocation } from 'react-router-dom'
+import bannerHome from './../../assets/Home/BannerHome.png'
+import bannerPropos from './../../assets/APropos/BannerPropos.png'
 
 function Banner() {
+  const urlLocation = useLocation()
+
   return (
-    <BannerWrap>
+    <div className="banner-wrap">
+      <img
+        src={`${urlLocation.pathname === '/' ? bannerHome : bannerPropos}`}
+        alt=""
+      />
       <div></div>
-      <p>Chez vous, partout et ailleurs</p>
-    </BannerWrap>
+      {urlLocation.pathname === '/' && (
+        <p>
+          Chez vous, <br className="line-break" />
+          partout et ailleurs
+        </p>
+      )}
+    </div>
   )
 }
 
