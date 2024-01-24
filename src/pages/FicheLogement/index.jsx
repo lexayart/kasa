@@ -12,6 +12,7 @@ function FicheLogement() {
       (element) => element.id === idLogement.idLogement,
     )
     const ratingNote = infosLogement.rating
+
     return (
       <div className="logement">
         <Slideshow imgLogement={infosLogement.pictures} />

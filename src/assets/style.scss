@@ -71,10 +71,13 @@ body {
     }
   }
 }
+
 .open {
+  max-height: 100%;
+  transition: max-height 1ms;
   & .collapse_background {
-    max-height: 100%;
-    transition: max-height 3s;
+    transform: scaleY(1);
+    transition: transform 300ms;
     & p,
     ul {
       opacity: 1;
@@ -89,9 +92,12 @@ body {
 }
 
 .close {
+  max-height: 52px;
+  transition: max-height 1ms;
+  transition-delay: 500ms;
   & .collapse_background {
-    max-height: 0px;
-    transition: max-height 3s;
+    transform: scaleY(0);
+    transition: transform 300ms;
     transition-delay: 200ms;
     box-sizing: border-box;
     & p,

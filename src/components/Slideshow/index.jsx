@@ -28,13 +28,6 @@ function Slideshow(imgLogement) {
 
   return (
     <div className="slideshow">
-      <img
-        src={arrow}
-        className="slideshow_arrow slideshow_arrow_left"
-        alt="flèche précédent"
-        onClick={previousImage}
-        role="button"
-      />
       <div className="slideshow_gallery">
         <div className="slideshow_gallery_content">
           {imgLogement.imgLogement.map((photo) => (
@@ -47,16 +40,28 @@ function Slideshow(imgLogement) {
           ))}
         </div>
       </div>
-      <img
-        src={arrow}
-        className="slideshow_arrow slideshow_arrow_right"
-        alt="flèche suivant"
-        onClick={nextImage}
-        role="button"
-      />
-      <p className="slideshow_numbering">
-        {index + 1}/{imgLogement.imgLogement.length}
-      </p>
+
+      {imgLogement.imgLogement.length !== 1 && (
+        <div>
+          <img
+            src={arrow}
+            className="slideshow_arrow slideshow_arrow_left"
+            alt="flèche précédent"
+            onClick={previousImage}
+            role="button"
+          />
+          <img
+            src={arrow}
+            className="slideshow_arrow slideshow_arrow_right"
+            alt="flèche suivant"
+            onClick={nextImage}
+            role="button"
+          />
+          <p className="slideshow_numbering">
+            {index + 1}/{imgLogement.imgLogement.length}
+          </p>
+        </div>
+      )}
     </div>
   )
 }
