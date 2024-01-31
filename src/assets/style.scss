@@ -61,6 +61,7 @@ body {
     border-radius: 0 0 5px 5px;
     & p,
     ul {
+      transform-origin: top;
       padding: 25px 20px 20px 20px;
       list-style: none;
       font-weight: 400;
@@ -80,9 +81,8 @@ body {
     transition: transform 300ms;
     & p,
     ul {
-      transform-origin: top;
       transform: scaleY(100%);
-      transition: transform 200ms;
+      transition: transform 300ms;
     }
   }
 }
@@ -94,12 +94,11 @@ body {
   & .collapse_background {
     transform: scaleY(0);
     transition: transform 300ms;
-    transition-delay: 200ms;
     box-sizing: border-box;
     & p,
     ul {
       transform: scaleY(0);
-      transition: transform 200ms;
+      transition: transform 300ms;
     }
   }
 }
